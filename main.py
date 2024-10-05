@@ -78,8 +78,9 @@ st.sidebar.markdown(footer_content, unsafe_allow_html=True)
 if uploaded_file is not None and Image is not None and VideoFileClip is not None:
     try:
         ## Save to temp file ##
-        tfile = tempfile.NamedTemporaryFile(delete=False) 
+        tfile = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') 
         tfile.write(uploaded_file.read())
+        tfile.close()
         
         ## Open file ##
         clip = VideoFileClip(tfile.name)
@@ -87,51 +88,36 @@ if uploaded_file is not None and Image is not None and VideoFileClip is not None
 
         ## Input widgets ##
         with st.expander('פרמטרים לשינוי'):
-            selected_resolution_scaling = st.slider('Scaling of video resolution', 0.0, 1.0, 0.5 )
+            selected_resolution_scaling = st.slider('Scaling of video resolution', 0.0, 1.0, 0.5)
             selected_speedx = st.slider('Playback speed', 0.1, 10.0, 5.0)
-            selected_export_range = st.slider('Duration range to export', 0, int(st.session_state.clip_duration), (0, int(st.session_state.clip_duration) ))
+            selected_export_range = st.slider('Duration range to export', 0, int(st.session_state.clip_duration), (0, int(st.session_state.clip_duration)))
             st.session_state.clip_fps = st.slider('FPS', 10, 60, 20)
 
         ## Resizing of video ##
-        clip = clip.resize(selected_resolution_scaling)
-            
+        # Instead of resizing here, we'll resize when processing frames
+        
         st.session_state.clip_width = clip.w
         st.session_state.clip_height = clip.h
         st.session_state.clip_duration = clip.duration
         st.session_state.clip_total_frames = clip.duration * clip.fps
-        # st.session_state.clip_fps = st.sidebar.slider('FPS', 10, 60, 20)
 
         ## Display output ##
-        #   st.subheader('Metrics')
-        # with st.container(border=1):
-        #     col1, col2, col3, col4, col5 = st.columns(5)
-        #     col1.metric('רוחב', st.session_state.clip_width, 'pixels')
-        #     col2.metric('גובה', st.session_state.clip_height, 'pixels')
-        #     col3.metric('משך', st.session_state.clip_duration, 'seconds')
-        #     col4.metric('FPS', st.session_state.clip_fps, '')
-        #     col5.metric('סה"כ פריימים', round(st.session_state.clip_total_frames, 2), 'frames')
+        with st.container(border=1):
+            col1, col2, col3, col4, col5 = st.columns(5)
+            col1.metric('רוחב', st.session_state.clip_width, 'pixels')
+            col2.metric('גובה', st.session_state.clip_height, 'pixels')
+            col3.metric('משך', st.session_state.clip_duration, 'seconds')
+            col4.metric('FPS', st.session_state.clip_fps, '')
+            col5.metric('סה"כ פריימים', round(st.session_state.clip_total_frames, 2), 'frames')
 
-        # # Extract video frame as a display image
-        # # st.subheader('רצף תמונות')
+        # Extract video frame as a display image
+        with st.expander('רצף תמונות'):
+            selected_frame = st.slider('תצוגה מקדימה של מסגרת זמן(ש)', 0, int(st.session_state.clip_duration), int(np.median(st.session_state.clip_duration)))
+            frame = clip.get_frame(selected_frame)
+            st.image(frame)
 
-        # with st.expander('רצף תמונות'):
-        #     selected_frame = st.slider('תצוגה מקדימה של מסגרת זמן(ש)', 0, int(st.session_state.clip_duration), int(np.median(st.session_state.clip_duration)) )
-        #     clip.save_frame('frame.gif', t=selected_frame)
-        #     frame_image = Image.open('frame.gif')
-        #     st.image(frame_image)
-
-        ## Print image parameters ##
-        # st.subheader('פרמטרים של התמונה')
-        # with st.expander('הצגת הפרמטרים של תמונה'):
-        #     st.write(f'File name: `{uploaded_file.name}`')
-        #     st.write('Image size:', frame_image.size)
-        #     st.write('Video resolution scaling', selected_resolution_scaling)
-        #     st.write('Speed playback:', selected_speedx)
-        #     st.write('Export duration:', selected_export_range)
-        #     st.write('Frames per second (FPS):', st.session_state.clip_fps)
-        
         ## Export animated GIF ##    
-        generate_gif = st.button('ליצירת תמונה מונפשת',use_container_width=True)
+        generate_gif = st.button('ליצירת תמונה מונפשת', use_container_width=True)
     
         if generate_gif:
             with st.spinner('מכין את התמונה...'):
@@ -139,26 +125,21 @@ if uploaded_file is not None and Image is not None and VideoFileClip is not None
             
                 frames = []
                 for frame in clip.iter_frames():
-                    frames.append(np.array(frame))
-                
-                image_list = []
-
-                for frame in frames:
-                    # Convert numpy array to PIL Image
-                    im = Image.fromarray(frame)
-                    # Resize the image using the version-agnostic method
-                    new_size = (int(im.width * selected_resolution_scaling), 
-                                int(im.height * selected_resolution_scaling))
-                    im = im.resize(new_size, resample=RESAMPLING_FILTER)
-                    image_list.append(im)
+                    # Resize the frame
+                    resized_frame = Image.fromarray(frame).resize(
+                        (int(clip.w * selected_resolution_scaling), 
+                         int(clip.h * selected_resolution_scaling)),
+                        resample=RESAMPLING_FILTER
+                    )
+                    frames.append(resized_frame)
 
                 # Save the GIF
-                image_list[0].save('export.gif', 
-                                format='GIF', 
-                                save_all=True, 
-                                append_images=image_list[1:], 
-                                duration=int(1000/st.session_state.clip_fps), 
-                                loop=0)
+                frames[0].save('export.gif', 
+                               format='GIF', 
+                               save_all=True, 
+                               append_images=frames[1:], 
+                               duration=int(1000/st.session_state.clip_fps), 
+                               loop=0)
                 
                 ## Download ##
                 
