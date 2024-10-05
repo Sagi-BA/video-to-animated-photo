@@ -24,7 +24,7 @@ h6,
 span,
 div,
 p {
-  /* unicode-bidi: bidi-override; */
+  unicode-bidi: bidi-override;
   text-align: left;
 } */
 
