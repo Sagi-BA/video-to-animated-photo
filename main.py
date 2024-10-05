@@ -9,6 +9,7 @@ try:
     from PIL import Image
     # Check if LANCZOS is available, otherwise fall back to BICUBIC
     RESAMPLING_FILTER = Image.Resampling.LANCZOS if hasattr(Image, 'Resampling') else Image.BICUBIC
+
 except ImportError:
     st.error("Failed to import PIL. Please check your Pillow installation.")
     Image = None
