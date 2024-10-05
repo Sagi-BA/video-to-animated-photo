@@ -1,91 +1,74 @@
 <style>
-  .custom-expander {
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-  .custom-expander summary {
-    padding: 10px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  .expander-content {
-    padding: 15px;
-  }
-  .centered-image {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 20px auto;
-  }
-  .creator-attribution {
-    text-align: center;
-    margin-top: 20px;
-    font-style: italic;
-  }
-  @media (max-width: 768px) {
-    .custom-expander,
+    .custom-expander {
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        direction: rtl;
+    }
+    .custom-expander summary {
+        padding: 15px;
+        cursor: pointer;
+        font-weight: bold;
+        background-color: #e0e0e0;
+    }
     .expander-content {
-      padding: 10px;
+        padding: 15px;
     }
-    h1 {
-      font-size: 1.5em;
+    .centered-image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 20px auto;
     }
-  }
+    .creator-attribution {
+        text-align: center;
+        padding: 10px;
+        background-color: #4a4a4a;
+        color: white;
+        font-weight: bold;
+        margin-top: 20px;
+        position: sticky;
+        bottom: 0;
+    }
+    @media (max-width: 768px) {
+        .custom-expander, .expander-content {
+            padding: 10px;
+        }
+        h1 {
+            font-size: 1.5em;
+        }
+    }
 </style>
 
 <div class="custom-expander">
-  <details>
-    <summary>אודות האפליקציה</summary>
-    <div class="expander-content">
-      <h1>הפיכת סרטון לתמונה מונפשת</h1>
+    <details>
+        <summary>אודות האפליקציה</summary>
+        <div class="expander-content">
+            <h1>הפיכת סרטון לתמונה מונפשת</h1>
 
-      <p>
-        ברוכים הבאים לאפליקציה להמרת קטעי וידאו לתמונות מונפשות (GIF)! הנה כיצד
-        להשתמש בה:
-      </p>
+            <p>ברוכים הבאים לאפליקציה להמרת קטעי וידאו לתמונות מונפשות (GIF)! הנה כיצד להשתמש בה:</p>
 
-      <ol>
-        <li>
-          <strong>העלאת קובץ</strong>: לחצו על הכפתור "העלו קובץ וידאו" ובחרו את
-          קובץ הווידאו שלכם.
-        </li>
-        <li>
-          <strong>התאמה אישית</strong>: לאחר העלאת הקובץ, תוכלו לשנות מספר
-          הגדרות:
-          <ul>
-            <li>שנו את רזולוציית הווידאו</li>
-            <li>התאימו את מהירות ההפעלה</li>
-            <li>בחרו את הקטע מהווידאו שברצונכם להמיר</li>
-            <li>קבעו את קצב הפריימים (FPS) של התמונה הסופית</li>
-          </ul>
-        </li>
-        <li>
-          <strong>תצוגה מקדימה</strong>: צפו בתצוגה מקדימה של פריים בודד
-          מהווידאו לפני ההמרה.
-        </li>
-        <li>
-          <strong>יצירת התמונה</strong>: לחצו על הכפתור "ליצירת תמונה מונפשת"
-          כדי להתחיל בתהליך ההמרה.
-        </li>
-        <li>
-          <strong>הורדה</strong>: לאחר שהתמונה נוצרה, תוכלו לצפות בו ולהוריד
-          אותה.
-        </li>
-      </ol>
+            <ol>
+                <li><strong>העלאת קובץ</strong>: לחצו על הכפתור "העלו קובץ וידאו" ובחרו את קובץ הווידאו שלכם.</li>
+                <li><strong>התאמה אישית</strong>: לאחר העלאת הקובץ, תוכלו לשנות מספר הגדרות:
+                    <ul>
+                        <li>שנו את רזולוציית הווידאו</li>
+                        <li>התאימו את מהירות ההפעלה</li>
+                        <li>בחרו את הקטע מהווידאו שברצונכם להמיר</li>
+                        <li>קבעו את קצב הפריימים (FPS) של התמונה הסופית</li>
+                    </ul>
+                </li>
+                <li><strong>תצוגה מקדימה</strong>: צפו בתצוגה מקדימה של פריים בודד מהווידאו לפני ההמרה.</li>
+                <li><strong>יצירת התמונה</strong>: לחצו על הכפתור "ליצירת תמונה מונפשת" כדי להתחיל בתהליך ההמרה.</li>
+                <li><strong>הורדה</strong>: לאחר שהתמונה נוצרה, תוכלו לצפות בו ולהוריד אותה.</li>
+            </ol>
 
-      <p>
-        זהו! עכשיו יש לכם תמונת GIF מותאמת אישית מהווידאו שלכם. תיהנו מהיצירה.
-      </p>
+            <p>זהו! עכשיו יש לכם תמונת GIF מותאמת אישית מהווידאו שלכם. תיהנו מהיצירה.</p>
 
-      <img
-        src="https://i.imgur.com/HyudRPp.gif"
-        alt="דוגמה"
-        class="centered-image"
-      />
-
-      <p class="creator-attribution">נוצר ב ❤️ ע"י שגיא בר און</p>
-    </div>
-  </details>
+            <img src="https://i.imgur.com/HyudRPp.gif" alt="דוגמה" class="centered-image">
+        </div>
+    </details>
+    <div class="creator-attribution">נוצר ב ❤️ ע"י שגיא בר און</div>
 </div>
