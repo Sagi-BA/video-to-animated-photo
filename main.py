@@ -121,10 +121,10 @@ if uploaded_file is not None:
                 for frame in frames:
                     # Convert numpy array to PIL Image
                     im = Image.fromarray(frame)
-                    # Resize the image using LANCZOS resampling (replacement for ANTIALIAS)
-                    im = im.resize((int(im.width * selected_resolution_scaling), 
-                                    int(im.height * selected_resolution_scaling)), 
-                                   Image.LANCZOS)
+                    # Resize the image using a version-agnostic method
+                    new_size = (int(im.width * selected_resolution_scaling), 
+                                int(im.height * selected_resolution_scaling))
+                    im = im.resize(new_size, resample=Image.Resampling.LANCZOS)
                     image_list.append(im)
 
                 # Save the GIF
@@ -132,7 +132,7 @@ if uploaded_file is not None:
                                    format='GIF', 
                                    save_all=True, 
                                    append_images=image_list[1:], 
-                                   duration=1000/st.session_state.clip_fps, 
+                                   duration=int(1000/st.session_state.clip_fps), 
                                    loop=0)
                 
                 ## Download ##
