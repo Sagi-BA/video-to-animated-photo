@@ -93,32 +93,32 @@ if uploaded_file is not None and Image is not None and VideoFileClip is not None
             st.session_state.clip_fps = st.slider('FPS', 10, 60, 20)
 
         ## Resizing of video ##
-        clip = clip.resize(selected_resolution_scaling)
+        # clip = clip.resize(selected_resolution_scaling)
             
-        st.session_state.clip_width = clip.w
-        st.session_state.clip_height = clip.h
-        st.session_state.clip_duration = clip.duration
-        st.session_state.clip_total_frames = clip.duration * clip.fps
-        # st.session_state.clip_fps = st.sidebar.slider('FPS', 10, 60, 20)
+        # st.session_state.clip_width = clip.w
+        # st.session_state.clip_height = clip.h
+        # st.session_state.clip_duration = clip.duration
+        # st.session_state.clip_total_frames = clip.duration * clip.fps
+        # # st.session_state.clip_fps = st.sidebar.slider('FPS', 10, 60, 20)
 
-        ## Display output ##
-        #   st.subheader('Metrics')
-        with st.container(border=1):
-            col1, col2, col3, col4, col5 = st.columns(5)
-            col1.metric('רוחב', st.session_state.clip_width, 'pixels')
-            col2.metric('גובה', st.session_state.clip_height, 'pixels')
-            col3.metric('משך', st.session_state.clip_duration, 'seconds')
-            col4.metric('FPS', st.session_state.clip_fps, '')
-            col5.metric('סה"כ פריימים', round(st.session_state.clip_total_frames, 2), 'frames')
+        # ## Display output ##
+        # #   st.subheader('Metrics')
+        # with st.container(border=1):
+        #     col1, col2, col3, col4, col5 = st.columns(5)
+        #     col1.metric('רוחב', st.session_state.clip_width, 'pixels')
+        #     col2.metric('גובה', st.session_state.clip_height, 'pixels')
+        #     col3.metric('משך', st.session_state.clip_duration, 'seconds')
+        #     col4.metric('FPS', st.session_state.clip_fps, '')
+        #     col5.metric('סה"כ פריימים', round(st.session_state.clip_total_frames, 2), 'frames')
 
-        # Extract video frame as a display image
-        # st.subheader('רצף תמונות')
+        # # Extract video frame as a display image
+        # # st.subheader('רצף תמונות')
 
-        with st.expander('רצף תמונות'):
-            selected_frame = st.slider('תצוגה מקדימה של מסגרת זמן(ש)', 0, int(st.session_state.clip_duration), int(np.median(st.session_state.clip_duration)) )
-            clip.save_frame('frame.gif', t=selected_frame)
-            frame_image = Image.open('frame.gif')
-            st.image(frame_image)
+        # with st.expander('רצף תמונות'):
+        #     selected_frame = st.slider('תצוגה מקדימה של מסגרת זמן(ש)', 0, int(st.session_state.clip_duration), int(np.median(st.session_state.clip_duration)) )
+        #     clip.save_frame('frame.gif', t=selected_frame)
+        #     frame_image = Image.open('frame.gif')
+        #     st.image(frame_image)
 
         ## Print image parameters ##
         # st.subheader('פרמטרים של התמונה')
