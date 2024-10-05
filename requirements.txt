@@ -1,0 +1,8 @@
+streamlit
+aiohttp #This is for telegram
+python-dotenv #for .env
+moviepy
+imageio==2.4.1
+imageio-ffmpeg
+Pillow==9.5.0
+

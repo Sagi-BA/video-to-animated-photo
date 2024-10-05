@@ -1,0 +1,101 @@
+:root {
+  --main-bg-color: #ffffff;
+  --text-color: #000000;
+  --accent-color: #4bb3fd;
+  --glow-color: #4bb3fd;
+  --button-bg: #4caf50;
+  --button-hover: #45a049;
+  --link-bg: #3498db;
+  --link-hover: #2980b9;
+}
+
+.stApp {
+  background-color: var(--main-bg-color);
+}
+
+body,
+html,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+div,
+p {
+  unicode-bidi: bidi-override;
+  text-align: right;
+  direction: rtl;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 5vw, 3.5rem);
+  color: var(--text-color);
+  text-shadow: 0 0 10px var(--glow-color);
+  text-align: center;
+  margin-top: 20px;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--accent-color);
+}
+
+p {
+  font-size: clamp(14px, 2vw, 20px) !important;
+}
+
+.stButton > button {
+  color: white;
+  background-color: var(--button-bg);
+  border: none;
+  border-radius: 8px;
+  padding: clamp(6px, 2vw, 10px) clamp(12px, 4vw, 20px);
+  font-size: clamp(10px, 2vw, 14px);
+  margin: 4px 2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.stButton > button:hover {
+  background-color: var(--button-hover);
+}
+
+.centered-link {
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: var(--link-bg);
+  color: white !important;
+  padding: clamp(6px, 2vw, 10px) clamp(12px, 4vw, 20px);
+  border-radius: 8px;
+  font-size: clamp(12px, 2vw, 16px);
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.centered-link:hover {
+  background-color: var(--link-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+video,
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.user-count {
+  color: var(--text-color);
+  text-align: center;
+  font-size: clamp(18px, 3vw, 30px);
+  margin-top: 20px;
+}
