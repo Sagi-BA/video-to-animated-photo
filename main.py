@@ -7,9 +7,12 @@ import numpy as np
 
 try:
     from PIL import Image
+    # Check if LANCZOS is available, otherwise fall back to BICUBIC
+    RESAMPLING_FILTER = Image.Resampling.LANCZOS if hasattr(Image, 'Resampling') else Image.BICUBIC
 except ImportError:
     st.error("Failed to import PIL. Please check your Pillow installation.")
     Image = None
+    RESAMPLING_FILTER = None
 
 try:
     from moviepy.editor import VideoFileClip
@@ -132,19 +135,19 @@ if uploaded_file is not None and Image is not None and VideoFileClip is not None
                 for frame in frames:
                     # Convert numpy array to PIL Image
                     im = Image.fromarray(frame)
-                    # Resize the image using a version-agnostic method
+                    # Resize the image using the version-agnostic method
                     new_size = (int(im.width * selected_resolution_scaling), 
                                 int(im.height * selected_resolution_scaling))
-                    im = im.resize(new_size, resample=Image.Resampling.LANCZOS)
+                    im = im.resize(new_size, resample=RESAMPLING_FILTER)
                     image_list.append(im)
 
                 # Save the GIF
                 image_list[0].save('export.gif', 
-                                   format='GIF', 
-                                   save_all=True, 
-                                   append_images=image_list[1:], 
-                                   duration=int(1000/st.session_state.clip_fps), 
-                                   loop=0)
+                                format='GIF', 
+                                save_all=True, 
+                                append_images=image_list[1:], 
+                                duration=int(1000/st.session_state.clip_fps), 
+                                loop=0)
                 
                 ## Download ##
                 
