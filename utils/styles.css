@@ -11,9 +11,10 @@
 
 .stApp {
   background-color: var(--main-bg-color);
+  direction: rtl;
 }
 
-body,
+/* body,
 html,
 h2,
 h3,
@@ -23,10 +24,9 @@ h6,
 span,
 div,
 p {
-  unicode-bidi: bidi-override;
-  text-align: right;
-  direction: rtl;
-}
+  /* unicode-bidi: bidi-override; */
+  text-align: left;
+} */
 
 h1 {
   font-size: clamp(1.5rem, 5vw, 3.5rem);

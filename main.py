@@ -90,9 +90,9 @@ if uploaded_file is not None and Image is not None and VideoFileClip is not None
 
         ## Input widgets ##
         with st.expander('פרמטרים לשינוי'):
-            selected_resolution_scaling = st.slider('Scaling of video resolution', 0.0, 1.0, 0.5)
-            selected_speedx = st.slider('Playback speed', 0.1, 10.0, 5.0)
-            selected_export_range = st.slider('Duration range to export', 0, int(st.session_state.clip_duration), (0, int(st.session_state.clip_duration)))
+            selected_resolution_scaling = st.slider('קנה מידה של רזולוציית וידאו', 0.0, 1.0, 0.5)
+            selected_speedx = st.slider('מהירות ריצה', 0.1, 10.0, 2.0)
+            selected_export_range = st.slider('טווח משך לייצוא', 0, int(st.session_state.clip_duration), (0, int(st.session_state.clip_duration)))
             st.session_state.clip_fps = st.slider('FPS', 10, 60, 20)
 
         ## Resizing of video ##
