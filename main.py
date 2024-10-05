@@ -7,9 +7,11 @@ import numpy as np
 
 try:
     from PIL import Image
-    # Check if LANCZOS is available, otherwise fall back to BICUBIC
-    RESAMPLING_FILTER = Image.Resampling.LANCZOS if hasattr(Image, 'Resampling') else Image.BICUBIC
-
+    # Use a version-independent resampling filter
+    if hasattr(Image, 'Resampling'):  # Pillow 9.0.0 and above
+        RESAMPLING_FILTER = Image.Resampling.LANCZOS
+    else:  # Pillow 8.x.x and below
+        RESAMPLING_FILTER = Image.LANCZOS
 except ImportError:
     st.error("Failed to import PIL. Please check your Pillow installation.")
     Image = None
