@@ -1,14 +1,11 @@
 import io
 import streamlit as st
-import streamlit.components.v1 as components
-import asyncio
 import os
 import base64
 import tempfile
 from PIL import Image
 import numpy as np
 from moviepy.editor import VideoFileClip
-import moviepy.video.fx.all as vfx
 from utils.counter import initialize_user_count, increment_user_count, get_user_count
 from utils.TelegramSender import send_telegram_gif_sync
 from utils.init import initialize
@@ -54,14 +51,13 @@ st.sidebar.markdown(footer_content, unsafe_allow_html=True)
 
 ## Display gif generation parameters once file has been uploaded ##
 if uploaded_file is not None:
-    ## Save to temp file ##
-    tfile = tempfile.NamedTemporaryFile(delete=False) 
-    tfile.write(uploaded_file.read())
     try:
+        ## Save to temp file ##
+        tfile = tempfile.NamedTemporaryFile(delete=False) 
+        tfile.write(uploaded_file.read())
         
         ## Open file ##
         clip = VideoFileClip(tfile.name)
-
         st.session_state.clip_duration = clip.duration
 
         ## Input widgets ##
@@ -123,10 +119,21 @@ if uploaded_file is not None:
                 image_list = []
 
                 for frame in frames:
+                    # Convert numpy array to PIL Image
                     im = Image.fromarray(frame)
+                    # Resize the image using LANCZOS resampling (replacement for ANTIALIAS)
+                    im = im.resize((int(im.width * selected_resolution_scaling), 
+                                    int(im.height * selected_resolution_scaling)), 
+                                   Image.LANCZOS)
                     image_list.append(im)
 
-                image_list[0].save('export.gif', format = 'GIF', save_all = True, loop = 0, append_images = image_list)
+                # Save the GIF
+                image_list[0].save('export.gif', 
+                                   format='GIF', 
+                                   save_all=True, 
+                                   append_images=image_list[1:], 
+                                   duration=1000/st.session_state.clip_fps, 
+                                   loop=0)
                 
                 ## Download ##
                 
