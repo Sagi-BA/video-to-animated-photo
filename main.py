@@ -158,7 +158,7 @@ if uploaded_file is not None:
                         f'<img src="data:image/gif;base64,{data_url}" alt="cat gif">'
                     )
                     
-                    st.info(f'גודל הקובץ: {fsize} MB', icon='💾')
+                    st.info(f'גודל הקובץ: {fsize} BM', icon='💾')
 
                     st.write(f"""
                         <a href="data:image/png;base64,{data_url}" download="{file_name}" class="centered-link">
