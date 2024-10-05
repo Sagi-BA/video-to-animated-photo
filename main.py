@@ -51,12 +51,22 @@ st.title(title)
 
 @st.cache_data
 def load_html_file(file_name):
-    with open(file_name, 'r', encoding='utf-8') as f:
-        return f.read()
+    try:
+        with open(file_name, 'r', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        st.warning(f"File {file_name} not found. Skipping HTML content.")
+        return ""
+    except Exception as e:
+        st.error(f"Error loading {file_name}: {str(e)}")
+
 
 # Load and display the custom expander HTML
 expander_html = load_html_file('expander.html')
-st.html(expander_html)
+if expander_html:
+    st.html(expander_html)
+else:
+    st.write("Custom HTML content could not be loaded.")
 
 uploaded_file = st.file_uploader("העלו קובץ וידאו", type=["mp4", "avi", "mov"])
 
