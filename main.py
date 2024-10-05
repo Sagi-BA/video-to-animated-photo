@@ -93,16 +93,16 @@ if uploaded_file is not None and Image is not None and VideoFileClip is not None
             st.session_state.clip_fps = st.slider('FPS', 10, 60, 20)
 
         ## Resizing of video ##
-        # clip = clip.resize(selected_resolution_scaling)
+        clip = clip.resize(selected_resolution_scaling)
             
-        # st.session_state.clip_width = clip.w
-        # st.session_state.clip_height = clip.h
-        # st.session_state.clip_duration = clip.duration
-        # st.session_state.clip_total_frames = clip.duration * clip.fps
-        # # st.session_state.clip_fps = st.sidebar.slider('FPS', 10, 60, 20)
+        st.session_state.clip_width = clip.w
+        st.session_state.clip_height = clip.h
+        st.session_state.clip_duration = clip.duration
+        st.session_state.clip_total_frames = clip.duration * clip.fps
+        # st.session_state.clip_fps = st.sidebar.slider('FPS', 10, 60, 20)
 
-        # ## Display output ##
-        # #   st.subheader('Metrics')
+        ## Display output ##
+        #   st.subheader('Metrics')
         # with st.container(border=1):
         #     col1, col2, col3, col4, col5 = st.columns(5)
         #     col1.metric('רוחב', st.session_state.clip_width, 'pixels')
