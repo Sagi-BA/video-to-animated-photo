@@ -52,7 +52,7 @@ initialize_user_count()
 
 st.title(title)
 
-@st.cache_data
+
 def load_html_file(file_name):
     try:
         with open(file_name, 'r', encoding='utf-8') as f:

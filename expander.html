@@ -1,103 +1,109 @@
 <style>
   .custom-expander {
-    background-color: #f0f0f0;
-    border-radius: 8px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    direction: rtl;
-    position: relative;
-    padding-bottom: 40px; /* Make room for the attribution */
   }
-  .custom-expander summary {
-    padding: 15px;
+  .custom-expander label {
+    color: #1e90ff;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    font-weight: bold;
-    background-color: #e0e0e0;
+    display: block;
+  }
+  .expander-toggle {
+    display: none;
   }
   .expander-content {
-    padding: 15px;
+    font-size: 26px;
+    line-height: 1.6;
+    color: #000000; /* Changed to black */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  .expander-toggle:checked + label + .expander-content {
+    max-height: 1100px; /* Adjust this value based on your content */
+  }
+  .expander-content p {
+    margin-bottom: 10px;
+  }
+  .highlight {
+    background: linear-gradient(120deg, #ffd700 0%, #ffd700 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 0.2em;
+    background-position: 0 88%;
+    transition: background-size 0.25s ease-in;
+  }
+  .highlight:hover {
+    background-size: 100% 88%;
+  }
+  .expander-toggle + label::after {
+    content: " ▼";
+  }
+  .expander-toggle:checked + label::after {
+    content: " ▲";
   }
   .centered-image {
+    width: 300px;
     display: block;
-    max-width: 100%;
-    height: auto;
     margin: 20px auto;
-  }
-  .creator-attribution {
-    text-align: center;
-    padding: 10px;
-    background-color: #4a4a4a;
-    color: white;
-    font-weight: bold;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-  }
-  @media (max-width: 768px) {
-    .custom-expander,
-    .expander-content {
-      padding: 10px;
-      padding-bottom: 50px; /* Increase bottom padding for mobile */
-    }
-    h1 {
-      font-size: 1.5em;
-    }
   }
 </style>
 
 <div class="custom-expander">
-  <details>
-    <summary>אודות האפליקציה</summary>
-    <div class="expander-content">
-      <h1>הפיכת סרטון לתמונה מונפשת</h1>
+  <input type="checkbox" id="expander-toggle" class="expander-toggle" />
+  <label for="expander-toggle">אודות האפליקציה</label>
+  <div class="expander-content">
+    <p>
+      ברוכים הבאים לאפליקציה להמרת קטעי וידאו לתמונות מונפשות (GIF)! הנה כיצד
+      להשתמש בה:
+    </p>
 
-      <p>
-        ברוכים הבאים לאפליקציה להמרת קטעי וידאו לתמונות מונפשות (GIF)! הנה כיצד
-        להשתמש בה:
-      </p>
+    <ol>
+      <li>
+        <strong>העלאת קובץ</strong>: לחצו על הכפתור "העלו קובץ וידאו" ובחרו את
+        קובץ הווידאו שלכם.
+      </li>
 
-      <ol>
-        <li>
-          <strong>העלאת קובץ</strong>: לחצו על הכפתור "העלו קובץ וידאו" ובחרו את
-          קובץ הווידאו שלכם.
-        </li>
-        <li>
-          <strong>התאמה אישית</strong>: לאחר העלאת הקובץ, תוכלו לשנות מספר
-          הגדרות:
-          <ul>
-            <li>שנו את רזולוציית הווידאו</li>
-            <li>התאימו את מהירות ההפעלה</li>
-            <li>בחרו את הקטע מהווידאו שברצונכם להמיר</li>
-            <li>קבעו את קצב הפריימים (FPS) של התמונה הסופית</li>
-          </ul>
-        </li>
-        <li>
-          <strong>תצוגה מקדימה</strong>: צפו בתצוגה מקדימה של פריים בודד
-          מהווידאו לפני ההמרה.
-        </li>
-        <li>
-          <strong>יצירת התמונה</strong>: לחצו על הכפתור "ליצירת תמונה מונפשת"
-          כדי להתחיל בתהליך ההמרה.
-        </li>
-        <li>
-          <strong>הורדה</strong>: לאחר שהתמונה נוצרה, תוכלו לצפות בו ולהוריד
-          אותה.
-        </li>
-      </ol>
+      <li>
+        <strong>התאמה אישית</strong>: לאחר העלאת הקובץ, תוכלו לשנות מספר הגדרות:
+        <ul>
+          <li>-שנו את רזולוציית הווידאו</li>
+          <li>-התאימו את מהירות ההפעלה</li>
+          <li>-בחרו את הקטע מהווידאו שברצונכם להמיר</li>
+          <li>-קבעו את קצב הפריימים (FPS) של התמונה הסופית</li>
+        </ul>
+      </li>
 
-      <p>
-        זהו! עכשיו יש לכם תמונת GIF מותאמת אישית מהווידאו שלכם. תיהנו מהיצירה.
-      </p>
+      <li>
+        <strong>תצוגה מקדימה</strong>: צפו בתצוגה מקדימה של פריים בודד מהווידאו
+        לפני ההמרה.
+      </li>
 
-      <img
-        src="https://i.imgur.com/HyudRPp.gif"
-        alt="דוגמה"
-        class="centered-image"
-      />
-    </div>
-  </details>
-  <div class="creator-attribution">נוצר ב ❤️ ע"י שגיא בר און</div>
+      <li>
+        <strong>יצירת התמונה</strong>: לחצו על הכפתור "ליצירת תמונה מונפשת" כדי
+        להתחיל בתהליך ההמרה.
+      </li>
+
+      <li>
+        <strong>הורדה</strong>: לאחר שהתמונה נוצרה, תוכלו לצפות בו ולהוריד אותה.
+      </li>
+    </ol>
+
+    <p>
+      זהו! עכשיו יש לכם תמונת GIF מוצאמת אישית מהווידאו שלכם. תיהנו מהיצירה.
+    </p>
+
+    <img
+      src="https://i.imgur.com/HyudRPp.gif"
+      alt="דוגמה"
+      class="centered-image"
+    />
+    <p><center>נוצר ב ❤️ ע"י שגיא בר און</center></p>
+  </div>
 </div>
